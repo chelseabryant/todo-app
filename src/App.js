@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+
 import './App.css';
+import InputBar from './components/InputBar';
+import Title from './components/Title';
+import { useState } from 'react'
+import Todo from './components/Todo';
 
 function App() {
+
+  const [todos, setTodos] = useState([])
+
+  const updateTodos = (newTodo) => {
+    if (!todos.includes(newTodo) && newTodo) {
+      setTodos([...todos, newTodo])
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title>
+        <h1>Ed's shit</h1>
+      </Title>
+      <InputBar updateTodos={updateTodos} />
+      {todos.map(todo => (
+        <Todo todo={todo} />
+      ))}
     </div>
   );
 }
